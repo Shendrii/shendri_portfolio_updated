@@ -3,25 +3,25 @@ const services = [
     icon: "⚙️",
     title: "Automations",
     description:
-      "Streamline your operations with intelligent workflow and process automation that saves time and reduces errors.",
+      "Automate repetitive tasks and workflows so your team can focus on what matters.",
   },
   {
     icon: "🧩",
     title: "Low-Code Customization",
     description:
-      "Build and extend low-code platforms to create tailored solutions without the overhead of traditional development.",
+      "Customize and extend low-code platforms to fit your exact needs — no heavy coding required.",
   },
   {
     icon: "🔗",
-    title: "System Integration & API Connectivity",
+    title: "API Integrations",
     description:
-      "Connect your tools and services via APIs to create seamless data flows across your entire tech stack.",
+      "Connect your apps and tools through APIs so your data flows smoothly across systems.",
   },
   {
     icon: "💻",
     title: "Web & Mobile App Development",
     description:
-      "End-to-end fullstack web and mobile solutions built with modern frameworks for performance and scalability.",
+      "Build fast, modern web and mobile apps from front to back using the latest frameworks.",
   },
 ];
 
