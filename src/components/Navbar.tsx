@@ -7,6 +7,7 @@ const navLinks = [
   { label: "Services", href: "#services" },
   { label: "Skills", href: "#skills" },
   { label: "Certifications", href: "#certifications" },
+  { label: "Projects", href: "#projects" },
   { label: "Blog", href: "#blog" },
 ];
 
@@ -21,7 +22,7 @@ export default function Navbar() {
           href="#"
           className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white"
         >
-          Kenneth<span className="text-accent">.</span>
+          Sky<span className="text-accent">.</span>
         </a>
 
         <div className="hidden items-center gap-8 md:flex">
