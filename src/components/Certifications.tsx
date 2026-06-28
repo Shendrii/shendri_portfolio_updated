@@ -24,7 +24,7 @@ export default function Certifications() {
     <section id="certifications" className="px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-16 text-center">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-violet-600 dark:text-violet-400">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-sky-600 dark:text-sky-400">
             Credentials
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
@@ -40,7 +40,7 @@ export default function Certifications() {
             {doubled.map((cert, i) => (
               <div
                 key={`${cert.alt}-${i}`}
-                className="group w-[420px] shrink-0 overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-violet-700"
+                className="group w-[420px] shrink-0 overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-sky-700"
               >
                 <div className="relative aspect-[4/3]">
                   <Image

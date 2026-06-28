@@ -30,7 +30,7 @@ export default function Services() {
     <section id="services" className="px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-16 text-center">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-violet-600 dark:text-violet-400">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-sky-600 dark:text-sky-400">
             What I Do
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
@@ -42,9 +42,9 @@ export default function Services() {
           {services.map((service) => (
             <div
               key={service.title}
-              className="group rounded-2xl border border-zinc-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-violet-300 hover:shadow-lg hover:shadow-violet-500/5 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-violet-700"
+              className="group rounded-2xl border border-zinc-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-lg hover:shadow-sky-500/5 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-sky-700"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-violet-50 text-2xl dark:bg-violet-950/50">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-sky-50 text-2xl dark:bg-sky-950/50">
                 {service.icon}
               </div>
               <h3 className="mb-2 text-lg font-semibold text-zinc-900 dark:text-white">

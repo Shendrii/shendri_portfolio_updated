@@ -23,7 +23,7 @@ export default function Loader({ isVisible }: LoaderProps) {
               initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: 1.1, opacity: 0.15 }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="absolute h-36 w-36 rounded-full bg-violet-500 blur-2xl"
+              className="absolute h-36 w-36 rounded-full bg-sky-500 blur-2xl"
             />
 
             {/* Letters animate in one by one */}
@@ -45,7 +45,7 @@ export default function Loader({ isVisible }: LoaderProps) {
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.55, duration: 0.3, ease: "backOut" }}
-                className="self-end pb-2 text-5xl font-bold text-violet-600 sm:text-6xl"
+                className="self-end pb-2 text-5xl font-bold text-sky-600 sm:text-6xl"
               >
                 .
               </motion.span>
@@ -64,7 +64,7 @@ export default function Loader({ isVisible }: LoaderProps) {
 
           {/* Progress bar */}
           <motion.div
-            className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-violet-600 to-indigo-600"
+            className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-sky-600 to-sky-600"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
             transition={{ duration: 1.6, ease: "easeInOut" }}

@@ -16,7 +16,7 @@ export default function Projects() {
     <section id="projects" className="px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-16 text-center">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-violet-600 dark:text-violet-400">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-sky-600 dark:text-sky-400">
             Portfolio
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
@@ -34,7 +34,7 @@ export default function Projects() {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-violet-700"
+              className="group block overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-sky-700"
             >
               <div className="relative aspect-video w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                 {project.image ? (
@@ -59,7 +59,7 @@ export default function Projects() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-semibold text-violet-700 dark:bg-violet-950/50 dark:text-violet-300"
+                      className="rounded-full bg-sky-100 px-2.5 py-0.5 text-xs font-semibold text-sky-700 dark:bg-sky-950/50 dark:text-sky-300"
                     >
                       {tag}
                     </span>
@@ -73,7 +73,7 @@ export default function Projects() {
                   {project.description}
                 </p>
 
-                <span className="inline-flex items-center gap-1.5 text-sm font-medium text-violet-600 transition-colors group-hover:text-violet-500 dark:text-violet-400 dark:group-hover:text-violet-300">
+                <span className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-600 transition-colors group-hover:text-sky-500 dark:text-sky-400 dark:group-hover:text-sky-300">
                   View Project
                   <svg
                     className="h-4 w-4 transition-transform group-hover:translate-x-1"
