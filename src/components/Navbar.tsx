@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useTheme } from "./ThemeProvider";
 
 const navLinks = [
+  { label: "Home", href: "#hero" },
   { label: "Services", href: "#services" },
   { label: "Skills", href: "#skills" },
   { label: "Certifications", href: "#certifications" },
@@ -42,7 +43,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-950/80">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a
-          href="#"
+          href="#hero"
           className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white"
         >
           Sky<span className="text-accent">.</span>
