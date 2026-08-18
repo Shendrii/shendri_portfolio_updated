@@ -10,6 +10,7 @@ type GalleryProject = {
   description: string;
   tags: string[];
   images: string[];
+  link: string;
 };
 
 const projects: GalleryProject[] = [
@@ -25,6 +26,7 @@ const projects: GalleryProject[] = [
       "/accountrix-3.png",
       "/accountrix-4.png",
     ],
+    link: "https://accountrix-app.vercel.app/",
   },
   {
     type: "gallery",
@@ -38,6 +40,7 @@ const projects: GalleryProject[] = [
       "/homefix-3.png",
       "/homefix-4.png",
     ],
+    link: "http://home-fix-six.vercel.app/",
   },
 ];
 
@@ -230,15 +233,28 @@ export default function Projects() {
                   <p className="mb-6 text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
                     {project.description}
                   </p>
-                  <button
-                    onClick={() => setCarousel({ images: project.images, index: 0 })}
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-600 transition-colors hover:text-sky-500 dark:text-sky-400 dark:hover:text-sky-300"
-                  >
-                    View Screenshots
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  </button>
+                  <div className="flex flex-wrap items-center gap-5">
+                    <button
+                      onClick={() => setCarousel({ images: project.images, index: 0 })}
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-600 transition-colors hover:text-sky-500 dark:text-sky-400 dark:hover:text-sky-300"
+                    >
+                      View Screenshots
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </button>
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-600 transition-colors hover:text-sky-500 dark:text-sky-400 dark:hover:text-sky-300"
+                    >
+                      View Live
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 3h7v7m0-7L10 14M5 5v14a2 2 0 002 2h14" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
               </div>
           ))}
