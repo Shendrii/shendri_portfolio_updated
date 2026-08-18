@@ -4,15 +4,6 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
-type SingleProject = {
-  type: "link";
-  title: string;
-  description: string;
-  tags: string[];
-  image: string;
-  link: string;
-};
-
 type GalleryProject = {
   type: "gallery";
   title: string;
@@ -21,9 +12,7 @@ type GalleryProject = {
   images: string[];
 };
 
-type Project = SingleProject | GalleryProject;
-
-const projects: Project[] = [
+const projects: GalleryProject[] = [
   {
     type: "gallery",
     title: "Accountrix",
@@ -197,84 +186,32 @@ export default function Projects() {
         </div>
 
         <div className="mx-auto flex max-w-3xl flex-col gap-8">
-          {projects.map((project) => {
-            if (project.type === "link") {
-              return (
-                <a
-                  key={project.title}
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-sky-700"
-                >
-                  <div className="relative aspect-video w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, 768px"
-                    />
-                  </div>
-                  <div className="p-8">
-                    <div className="mb-4 flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full bg-sky-100 px-2.5 py-0.5 text-xs font-semibold text-sky-700 dark:bg-sky-950/50 dark:text-sky-300"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <h3 className="mb-3 text-xl font-bold text-zinc-900 dark:text-white sm:text-2xl">
-                      {project.title}
-                    </h3>
-                    <p className="mb-6 text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
-                      {project.description}
-                    </p>
-                    <span className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-600 transition-colors group-hover:text-sky-500 dark:text-sky-400 dark:group-hover:text-sky-300">
-                      View Project
-                      <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </span>
-                  </div>
-                </a>
-              );
-            }
-
-            // Gallery card
-            return (
+          {projects.map((project) => (
               <div
                 key={project.title}
-                className="overflow-hidden rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900"
+                className="overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-sky-700"
               >
-                {/* 2x2 image grid */}
-                <div className="grid grid-cols-2 gap-1 bg-zinc-100 dark:bg-zinc-800">
-                  {project.images.map((src, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setCarousel({ images: project.images, index: i })}
-                      className="group relative aspect-video overflow-hidden focus:outline-none"
-                      aria-label={`View screenshot ${i + 1}`}
-                    >
-                      <Image
-                        src={src}
-                        alt={`${project.title} screenshot ${i + 1}`}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 50vw, 384px"
-                      />
-                      {/* Overlay hint */}
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/30">
-                        <svg className="h-8 w-8 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
-                        </svg>
-                      </div>
-                    </button>
-                  ))}
-                </div>
+                <button
+                  onClick={() => setCarousel({ images: project.images, index: 0 })}
+                  className="group relative block aspect-video w-full overflow-hidden bg-zinc-100 text-left focus:outline-none dark:bg-zinc-800"
+                  aria-label={`View ${project.title} screenshots`}
+                >
+                  <Image
+                    src={project.images[0]}
+                    alt={`${project.title} preview`}
+                    fill
+                    className="object-cover transition-transform duration-500 motion-reduce:transition-none group-hover:scale-105 motion-reduce:group-hover:scale-100"
+                    sizes="(max-width: 768px) 100vw, 768px"
+                    priority={project.title === "Accountrix"}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-80" />
+                  <span className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full bg-black/60 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2v12a2 2 0 002 2z" />
+                    </svg>
+                    {project.images.length} screenshots
+                  </span>
+                </button>
 
                 <div className="p-8">
                   <div className="mb-4 flex flex-wrap gap-2">
@@ -304,8 +241,7 @@ export default function Projects() {
                   </button>
                 </div>
               </div>
-            );
-          })}
+          ))}
         </div>
       </div>
 
