@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Loader from "./Loader";
 
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     // Show loader for 2s then dismiss
@@ -17,9 +18,9 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
     <>
       <Loader isVisible={loading} />
       <motion.div
-        initial={{ opacity: 0 }}
+        initial={reduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: loading ? 0 : 1 }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
+        transition={{ duration: reduceMotion ? 0 : 0.28, ease: "easeOut" }}
       >
         {children}
       </motion.div>

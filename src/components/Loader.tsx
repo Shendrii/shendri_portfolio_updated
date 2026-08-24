@@ -1,28 +1,30 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 interface LoaderProps {
   isVisible: boolean;
 }
 
 export default function Loader({ isVisible }: LoaderProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
           key="loader"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.6, ease: "easeInOut" } }}
+          exit={reduceMotion ? {} : { opacity: 0, transition: { duration: 0.28, ease: "easeOut" } }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white dark:bg-[#0a0a0a]"
         >
           {/* Initials */}
           <div className="relative flex items-center justify-center">
             {/* Glow ring */}
             <motion.div
-              initial={{ scale: 0.6, opacity: 0 }}
+              initial={reduceMotion ? false : { scale: 0.6, opacity: 0 }}
               animate={{ scale: 1.1, opacity: 0.15 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              transition={{ duration: reduceMotion ? 0 : 0.28, ease: "easeOut" }}
               className="absolute h-36 w-36 rounded-full bg-sky-500 blur-2xl"
             />
 
@@ -31,9 +33,9 @@ export default function Loader({ isVisible }: LoaderProps) {
               {["S", "K", "Y"].map((letter, i) => (
                 <motion.span
                   key={letter}
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.15, duration: 0.5, ease: "easeOut" }}
+                  transition={{ delay: reduceMotion ? 0 : i * 0.08, duration: reduceMotion ? 0 : 0.28, ease: "easeOut" }}
                   className="text-7xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-8xl"
                 >
                   {letter}
@@ -42,9 +44,9 @@ export default function Loader({ isVisible }: LoaderProps) {
 
               {/* Accent dot */}
               <motion.span
-                initial={{ opacity: 0, scale: 0 }}
+                initial={reduceMotion ? false : { opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.55, duration: 0.3, ease: "backOut" }}
+                transition={{ delay: reduceMotion ? 0 : 0.24, duration: reduceMotion ? 0 : 0.28, ease: "easeOut" }}
                 className="self-end pb-2 text-5xl font-bold text-sky-600 sm:text-6xl"
               >
                 .
@@ -54,9 +56,9 @@ export default function Loader({ isVisible }: LoaderProps) {
 
           {/* Tagline */}
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
+            transition={{ delay: reduceMotion ? 0 : 0.28, duration: reduceMotion ? 0 : 0.28, ease: "easeOut" }}
             className="mt-6 text-sm font-medium tracking-widest text-zinc-400 uppercase dark:text-zinc-500"
           >
             Shendri Kenneth Yamba
@@ -65,9 +67,9 @@ export default function Loader({ isVisible }: LoaderProps) {
           {/* Progress bar */}
           <motion.div
             className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-sky-600 to-sky-600"
-            initial={{ width: "0%" }}
+            initial={reduceMotion ? false : { width: "0%" }}
             animate={{ width: "100%" }}
-            transition={{ duration: 1.6, ease: "easeInOut" }}
+            transition={{ duration: reduceMotion ? 0 : 0.28, ease: "easeOut" }}
           />
         </motion.div>
       )}

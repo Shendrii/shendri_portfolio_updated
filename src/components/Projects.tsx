@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 type GalleryProject = {
   type: "gallery";
@@ -44,6 +44,67 @@ const projects: GalleryProject[] = [
   },
 ];
 
+function ProjectPreview({
+  project,
+  onOpen,
+}: {
+  project: GalleryProject;
+  onOpen: () => void;
+}) {
+  const reduceMotion = useReducedMotion();
+  const [activeImage, setActiveImage] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused || reduceMotion) return;
+
+    const interval = window.setInterval(() => {
+      setActiveImage((current) => (current + 1) % project.images.length);
+    }, 4500);
+
+    return () => window.clearInterval(interval);
+  }, [paused, project.images.length, reduceMotion]);
+
+  return (
+    <button
+      onClick={onOpen}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      className="group relative block aspect-video w-full overflow-hidden bg-zinc-100 text-left focus:outline-none dark:bg-zinc-800"
+      aria-label={`Open ${project.title} screenshots`}
+    >
+      <AnimatePresence initial={false} mode="sync">
+        <motion.div
+          key={activeImage}
+          initial={reduceMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={reduceMotion ? {} : { opacity: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.28, ease: "easeOut" }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={project.images[activeImage]}
+            alt={`${project.title} preview`}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 768px"
+            priority={project.title === "Accountrix" && activeImage === 0}
+          />
+        </motion.div>
+      </AnimatePresence>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-80" />
+      <span className="pointer-events-none absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full bg-black/60 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
+        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        {project.images.length} screenshots
+      </span>
+    </button>
+  );
+}
+
 function Carousel({
   images,
   startIndex,
@@ -53,6 +114,7 @@ function Carousel({
   startIndex: number;
   onClose: () => void;
 }) {
+  const reduceMotion = useReducedMotion();
   const [current, setCurrent] = useState(startIndex);
 
   const prev = useCallback(
@@ -107,10 +169,10 @@ function Carousel({
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
-              initial={{ opacity: 0, x: 40 }}
+              initial={reduceMotion ? false : { opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -40 }}
-              transition={{ duration: 0.25 }}
+              exit={reduceMotion ? {} : { opacity: 0, x: -10 }}
+              transition={{ duration: reduceMotion ? 0 : 0.28, ease: "easeOut" }}
               className="absolute inset-0"
             >
               <Image
@@ -180,7 +242,7 @@ export default function Projects() {
           <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-sky-600 dark:text-sky-400">
             Portfolio
           </p>
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
             Sample Projects
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-zinc-500 dark:text-zinc-400">
@@ -194,27 +256,10 @@ export default function Projects() {
                 key={project.title}
                 className="overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-sky-700"
               >
-                <button
-                  onClick={() => setCarousel({ images: project.images, index: 0 })}
-                  className="group relative block aspect-video w-full overflow-hidden bg-zinc-100 text-left focus:outline-none dark:bg-zinc-800"
-                  aria-label={`View ${project.title} screenshots`}
-                >
-                  <Image
-                    src={project.images[0]}
-                    alt={`${project.title} preview`}
-                    fill
-                    className="object-cover transition-transform duration-500 motion-reduce:transition-none group-hover:scale-105 motion-reduce:group-hover:scale-100"
-                    sizes="(max-width: 768px) 100vw, 768px"
-                    priority={project.title === "Accountrix"}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-80" />
-                  <span className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full bg-black/60 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2v12a2 2 0 002 2z" />
-                    </svg>
-                    {project.images.length} screenshots
-                  </span>
-                </button>
+                <ProjectPreview
+                  project={project}
+                  onOpen={() => setCarousel({ images: project.images, index: 0 })}
+                />
 
                 <div className="p-8">
                   <div className="mb-4 flex flex-wrap gap-2">
@@ -227,22 +272,13 @@ export default function Projects() {
                       </span>
                     ))}
                   </div>
-                  <h3 className="mb-3 text-xl font-bold text-zinc-900 dark:text-white sm:text-2xl">
+                  <h3 className="mb-3 font-heading text-xl font-bold text-zinc-900 dark:text-white sm:text-2xl">
                     {project.title}
                   </h3>
                   <p className="mb-6 text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap items-center gap-5">
-                    <button
-                      onClick={() => setCarousel({ images: project.images, index: 0 })}
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-600 transition-colors hover:text-sky-500 dark:text-sky-400 dark:hover:text-sky-300"
-                    >
-                      View Screenshots
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                    </button>
                     <a
                       href={project.link}
                       target="_blank"

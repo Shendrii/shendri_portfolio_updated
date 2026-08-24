@@ -27,7 +27,7 @@ export default function Blog() {
           <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-sky-600 dark:text-sky-400">
             Insights
           </p>
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
             Blog
           </h2>
         </div>
@@ -58,7 +58,7 @@ export default function Blog() {
                   July 2024 &middot; 8 min read
                 </span>
               </div>
-              <h3 className="mb-3 text-xl font-bold leading-snug text-zinc-900 dark:text-white sm:text-2xl">
+              <h3 className="mb-3 font-heading text-xl font-bold leading-snug text-zinc-900 dark:text-white sm:text-2xl">
                 Navigating Growth: My Journey as an Intern at Likha IT Inc.
               </h3>
               <p className="mb-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
@@ -92,7 +92,7 @@ export default function Blog() {
           {upcomingPosts.map((post) => (
             <article
               key={post.title}
-              className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-lg hover:shadow-sky-500/5 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-sky-700"
+              className="flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 opacity-65 dark:border-zinc-800 dark:bg-zinc-900"
             >
               <div className="mb-4 flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50 text-xl dark:bg-sky-950/50">
@@ -101,8 +101,11 @@ export default function Blog() {
                 <span className="rounded-full bg-sky-100 px-2.5 py-0.5 text-xs font-semibold text-sky-700 dark:bg-sky-950/50 dark:text-sky-300">
                   {post.category}
                 </span>
+                <span className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-semibold text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+                  Draft
+                </span>
               </div>
-              <h3 className="mb-2 text-lg font-semibold leading-snug text-zinc-900 dark:text-white">
+              <h3 className="mb-2 font-heading text-lg font-semibold leading-snug text-zinc-900 dark:text-white">
                 {post.title}
               </h3>
               <p className="mb-4 flex-1 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">

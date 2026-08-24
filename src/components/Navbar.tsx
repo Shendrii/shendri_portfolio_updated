@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 
 const navLinks = [
@@ -16,6 +17,7 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const sectionIds = navLinks.map((l) => l.href.replace("#", ""));
@@ -44,7 +46,7 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a
           href="#hero"
-          className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white"
+          className="font-heading text-lg font-bold tracking-tight text-zinc-900 dark:text-white"
         >
           Sky<span className="text-accent">.</span>
         </a>
@@ -63,9 +65,16 @@ export default function Navbar() {
                 }`}
               >
                 {link.label}
-                {isActive && (
-                  <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-sky-500" />
-                )}
+                {isActive &&
+                  (reduceMotion ? (
+                    <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-sky-500" />
+                  ) : (
+                    <motion.span
+                      layoutId="active-nav-link"
+                      className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-sky-500"
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                    />
+                  ))}
               </a>
             );
           })}

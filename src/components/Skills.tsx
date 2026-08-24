@@ -1,7 +1,12 @@
+"use client";
+
+import { Cloud, Palette, Server, Wrench, Zap } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+
 const skillCategories = [
   {
     category: "Frontend",
-    icon: "🎨",
+    icon: Palette,
     skills: [
       "JavaScript",
       "TypeScript",
@@ -14,7 +19,7 @@ const skillCategories = [
   },
   {
     category: "Backend",
-    icon: "🖥️",
+    icon: Server,
     skills: [
       "Node.js",
       "Express.js",
@@ -29,22 +34,24 @@ const skillCategories = [
   },
   {
     category: "Developer Tools",
-    icon: "🛠️",
+    icon: Wrench,
     skills: ["VS Code", "Cursor", "Asana", "Postman", "MySQL Workbench"],
   },
   {
     category: "Cloud Services",
-    icon: "☁️",
+    icon: Cloud,
     skills: ["AWS"],
   },
   {
     category: "Low/No-Code & Automation",
-    icon: "⚡",
+    icon: Zap,
     skills: ["Power Automate", "Make", "Bubble", "Flutterflow"],
   },
 ];
 
 export default function Skills() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section id="skills" className="px-6 py-24">
       <div className="mx-auto max-w-6xl">
@@ -52,22 +59,26 @@ export default function Skills() {
           <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-sky-600 dark:text-sky-400">
             Tech Stack
           </p>
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
             Skills &amp; Tools
           </h2>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {skillCategories.map((cat) => (
-            <div
+        <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
+          {skillCategories.map((cat, index) => {
+            const Icon = cat.icon;
+            return (
+            <motion.div
               key={cat.category}
-              className="rounded-2xl border border-zinc-200 bg-white p-6 transition-all duration-300 hover:border-sky-300 hover:shadow-lg hover:shadow-sky-500/5 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-sky-700"
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.28, delay: reduceMotion ? 0 : index * 0.07, ease: "easeOut" }}
+              className="border-l-2 border-zinc-200 pl-5 transition-colors duration-200 ease-out hover:border-sky-400 dark:border-zinc-800 dark:hover:border-sky-600"
             >
-              <div className="mb-4 flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50 text-xl dark:bg-sky-950/50">
-                  {cat.icon}
-                </span>
-                <h3 className="text-lg font-semibold text-zinc-900 dark:text-white">
+              <div className="mb-3 flex items-center gap-2.5 text-sky-600 dark:text-sky-400">
+                <Icon className="h-5 w-5" strokeWidth={1.75} />
+                <h3 className="font-heading text-base font-semibold text-zinc-900 dark:text-white">
                   {cat.category}
                 </h3>
               </div>
@@ -81,8 +92,8 @@ export default function Skills() {
                   </span>
                 ))}
               </div>
-            </div>
-          ))}
+            </motion.div>
+          )})}
         </div>
       </div>
     </section>
