@@ -106,7 +106,7 @@ export default function Hero() {
         <div className="flex justify-center lg:justify-end">
           <div className="relative h-[400px] w-[320px] overflow-hidden rounded-2xl border-2 border-zinc-200 shadow-2xl shadow-sky-500/10 dark:border-zinc-800 sm:h-[480px] sm:w-[380px]">
             <Image
-              src="/shendri-pic.png"
+              src="/shendri-pic.jpg"
               alt="Shendri Kenneth Yamba"
               fill
               className="object-cover object-top"

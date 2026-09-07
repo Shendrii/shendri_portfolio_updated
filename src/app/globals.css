@@ -15,11 +15,17 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --background-gradient:
+    radial-gradient(circle at 12% 8%, rgb(186 230 253 / 0.42), transparent 30rem),
+    radial-gradient(circle at 88% 32%, rgb(224 242 254 / 0.8), transparent 28rem);
 }
 
 .dark {
   --background: #0a0a0a;
   --foreground: #ededed;
+  --background-gradient:
+    radial-gradient(circle at 12% 8%, rgb(14 116 144 / 0.18), transparent 32rem),
+    radial-gradient(circle at 88% 32%, rgb(3 105 161 / 0.12), transparent 30rem);
 }
 
 html {
@@ -29,6 +35,8 @@ html {
 
 body {
   background: var(--background);
+  background-image: var(--background-gradient);
+  background-attachment: fixed;
   color: var(--foreground);
 }
 
